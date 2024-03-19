@@ -119,6 +119,8 @@ class Lexer:
             
             if Token.isKeyword(tokText):
                 token = Token(tokText, TokenType[tokText])
+            elif Token.isBoolean(tokText):
+                token = Token(tokText, TokenType.BOOLEAN)
             else:
                 token = Token(tokText, TokenType.INDENT)
         else: 

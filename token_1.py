@@ -14,13 +14,21 @@ class Token:
 		except Exception as e:
 			return False
 	
+	@staticmethod
+	def isBoolean(text:str) -> bool:
+		if text.lower() in ['false', 'true']: 
+			return True
+		return False
+	
 # Enum for token type
 class TokenType(Enum):
 	EOF = -1
 	NEWLINE = 0
+	# Literals
 	NUMBER = 1
 	INDENT = 2
 	STRING = 3
+	BOOLEAN = 4
 	# Keywords
 	LABEL = 101
 	GOTO = 102
