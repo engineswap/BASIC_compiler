@@ -1,5 +1,6 @@
 from lexer import Lexer
 from parse import Parser
+from token_1 import TokenType
 from emit import Emitter
 import sys
 
@@ -17,10 +18,10 @@ if __name__ == "__main__":
     emitter.writeFile()  # Write file to output
     print("Parsing complete")
 
-    # token = lexer.getToken()
-    # while token.kind != TokenType.EOF:
-    #    if token.kind != TokenType.NEWLINE:
-    #        print(token.kind, '"' + token.text + '"')
-    #    else:
-    #        print(token.kind)
-    #    token = lexer.getToken()
+    token = lexer.getToken()
+    while token.kind != TokenType.EOF:
+        if token.kind != TokenType.NEWLINE:
+            print(token.kind, '"' + token.text + '"')
+        else:
+            print(token.kind)
+        token = lexer.getToken()
