@@ -55,3 +55,6 @@ class TokenType(Enum):
     LTEQ = 209
     GT = 210
     GTEQ = 211
+    # MISC syntax
+    OPEN_PAREN = 301
+    CLOSE_PAREN = 302

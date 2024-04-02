@@ -82,12 +82,17 @@ class Parser:
                 self.expression()  # This will emit the expression result
                 self.emitter.emitLine("));")
 
-        # "IF" comparison "THEN" nl {statement} "ENDIF" nl
+        # "IF" (comparison) "THEN" nl {statement} "ENDIF" nl
         elif self.checkToken(TokenType.IF):
             print("STATEMENT-IF")
             self.nextToken()
+
+            self.match(TokenType.OPEN_PAREN)
+
             self.emitter.emit("if(")
             self.comparison()  # this will emit code
+
+            self.match(TokenType.CLOSE_PAREN)
 
             self.match(TokenType.THEN)
             self.nl()
@@ -97,13 +102,17 @@ class Parser:
                 self.statement()
             self.emitter.emitLine("}")
             self.match(TokenType.ENDIF)
-        # | "WHILE" comparison "REPEAT" nl {statement nl} "ENDWHILE" nl
+        # | "WHILE" (comparison "REPEAT" nl {statement nl} "ENDWHILE" nl
         elif self.checkToken(TokenType.WHILE):
             print("STATEMENT-WHILE")
             self.nextToken()
+            self.match(TokenType.OPEN_PAREN)
+
             self.emitter.emit("while(")
             self.comparison()
             self.emitter.emitLine("){")
+
+            self.match(TokenType.CLOSE_PAREN)
 
             self.match(TokenType.REPEAT)
             self.nl()
@@ -250,6 +259,12 @@ class Parser:
                 )
             self.emitter.emit(self.curToken.text)
             self.nextToken()
+        elif self.checkToken(TokenType.OPEN_PAREN):
+            self.emitter.emit(self.curToken.text)
+            self.nextToken()
+            self.expression()
+            self.emitter.emit(self.curToken.text)
+            self.match(TokenType.CLOSE_PAREN)
         else:
             self.abort("Unexpected token at " + self.curToken.text)
 

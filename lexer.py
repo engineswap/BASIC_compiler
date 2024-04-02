@@ -56,6 +56,10 @@ class Lexer:
             token = Token(self.curChar, TokenType.SLASH)
         elif self.curChar == "\n":
             token = Token(self.curChar, TokenType.NEWLINE)
+        elif self.curChar == "(":
+            token = Token(self.curChar, TokenType.OPEN_PAREN)
+        elif self.curChar == ")":
+            token = Token(self.curChar, TokenType.CLOSE_PAREN)
         elif self.curChar == "=":
             if self.peek() == "=":
                 lastChar = self.curChar
@@ -70,7 +74,7 @@ class Lexer:
             if self.peek() == "=":  # >=
                 lastChar = self.curChar
                 self.nextChar()
-                token = Token(self.curChar, TokenType.GTEQ)
+                token = Token(">=", TokenType.GTEQ)
             else:  # >
                 token = Token(self.curChar, TokenType.GT)
         elif self.curChar == "<":
@@ -78,7 +82,7 @@ class Lexer:
             if self.peek() == "=":  # <=
                 lastChar = self.curChar
                 self.nextChar()
-                token = Token(self.curChar, TokenType.LTEQ)
+                token = Token("<=", TokenType.LTEQ)
             else:  # <
                 token = Token(self.curChar, TokenType.LT)
         elif self.curChar == "!":
