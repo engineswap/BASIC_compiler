@@ -47,7 +47,7 @@ class Parser:
         self.emitter.headerLine("#include <stdio.h>")
         self.emitter.headerLine("int main(){")
 
-        print("PROGRAM")
+        # print("PROGRAM")
         # Skip new lines at the start of our program
         while self.checkToken(TokenType.NEWLINE):
             self.nextToken()
@@ -69,7 +69,7 @@ class Parser:
 
         # "PRINT" (expression | string) nl
         if self.checkToken(TokenType.PRINT):
-            print("STATEMENT-PRINT")
+            # print("STATEMENT-PRINT")
             self.nextToken()
 
             if self.checkToken(TokenType.STRING):
@@ -84,7 +84,7 @@ class Parser:
 
         # "IF" (comparison) "THEN" nl {statement} "ENDIF" nl
         elif self.checkToken(TokenType.IF):
-            print("STATEMENT-IF")
+            # print("STATEMENT-IF")
             self.nextToken()
 
             self.match(TokenType.OPEN_PAREN)
@@ -104,7 +104,7 @@ class Parser:
             self.match(TokenType.ENDIF)
         # | "WHILE" (comparison "REPEAT" nl {statement nl} "ENDWHILE" nl
         elif self.checkToken(TokenType.WHILE):
-            print("STATEMENT-WHILE")
+            # print("STATEMENT-WHILE")
             self.nextToken()
             self.match(TokenType.OPEN_PAREN)
 
@@ -124,7 +124,7 @@ class Parser:
             self.match(TokenType.ENDWHILE)
         # | "LABEL" ident nl
         elif self.checkToken(TokenType.LABEL):
-            print("STATEMENT-LABEL")
+            # print("STATEMENT-LABEL")
             self.nextToken()
             # Make sure Not already declared
             if self.curToken.text in self.labelsDeclared:
@@ -135,14 +135,14 @@ class Parser:
             self.match(TokenType.IDENT)
         # | "GOTO" ident nl
         elif self.checkToken(TokenType.GOTO):
-            print("STATEMENT-GOTO")
+            # print("STATEMENT-GOTO")
             self.nextToken()
             self.labelsGotoed.add(self.curToken.text)
             self.emitter.emitLine("goto " + self.curToken.text + ";")
             self.match(TokenType.IDENT)
         # | "LET" ident "=" expression nl
         elif self.checkToken(TokenType.LET):
-            print("STATEMENT-LET")
+            # print("STATEMENT-LET")
             self.nextToken()
 
             # Add INDENT to symbols if it doesnt already exist
@@ -157,7 +157,7 @@ class Parser:
             self.emitter.emitLine(";")
         # | "INPUT" ident nl
         elif self.checkToken(TokenType.INPUT):
-            print("STATEMENT-INPUT")
+            # print("STATEMENT-INPUT")
             self.nextToken()
 
             # If var doesnt exist, lets add it
@@ -195,7 +195,7 @@ class Parser:
 
     # comparison ::= expression (("==" | "!=" | ">" | ">=" | "<" | "<=") expression)+
     def comparison(self):
-        print("COMPARISON")
+        # print("COMPARISON")
         self.expression()
         # at least 1 comparison operator should be here
         if self.isComparisonOperator():
@@ -216,7 +216,7 @@ class Parser:
 
     # expression ::= term {( "-" | "+" ) term}
     def expression(self):
-        print("EXPRESSION")
+        # print("EXPRESSION")
         self.term()
 
         # Can have 0+ ("-"|"+") term
@@ -227,7 +227,7 @@ class Parser:
 
     # term ::= unary {( "/" | "*" ) unary}
     def term(self):
-        print("TERM")
+        # print("TERM")
         self.unary()
 
         while self.checkToken(TokenType.SLASH) or self.checkToken(TokenType.ASTERISK):
@@ -237,7 +237,7 @@ class Parser:
 
     # unary ::= ["+" | "-"] primary
     def unary(self):
-        print("UNARY")
+        # print("UNARY")
 
         # Optional sign
         if self.checkToken(TokenType.MINUS) or self.checkToken(TokenType.PLUS):
@@ -247,7 +247,7 @@ class Parser:
 
     # primary ::= number | ident
     def primary(self):
-        print("PRIMARY: " + self.curToken.text)
+        # print("PRIMARY: " + self.curToken.text)
         if self.checkToken(TokenType.NUMBER):
             self.emitter.emit(self.curToken.text)
             self.nextToken()
@@ -270,7 +270,7 @@ class Parser:
 
     # nl ::= '\n'+
     def nl(self):
-        print("NEWLINE")
+        # print("NEWLINE")
 
         self.match(TokenType.NEWLINE)
         # We can have more new lines
