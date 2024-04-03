@@ -49,6 +49,8 @@ def load_tests(loader, tests, pattern):
         # Get files in dirPath
         sourceCodeFiles = listdir(dirPath)
         for filePath in sourceCodeFiles:
+            if not filePath.endswith(".yolo"):
+                continue
             yoloFilePath = dirPath + "/" + filePath
             cFilePath = yoloFilePath.replace("yolo", "c")
             test_method = create_test_method(yoloFilePath, cFilePath)

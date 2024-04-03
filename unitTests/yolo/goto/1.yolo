@@ -1,0 +1,3 @@
+LABEL goober
+PRINT "INFINITY AND BEYOND"
+GOTO goober

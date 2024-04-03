@@ -106,7 +106,7 @@ class Lexer:
             startPos = self.curPos
             while self.peek().isdigit():
                 self.nextChar()
-            if self.curChar == ".":
+            if self.peek() == ".":
                 self.nextChar()
                 # Check for legal decimal
                 if not self.peek().isdigit():
