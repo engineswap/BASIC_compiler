@@ -1,6 +1,7 @@
 # Yolo to C compiler
 
 ![binary](https://png.pngtree.com/thumb_back/fh260/background/20201101/pngtree-abstract-technology-binary-codes-and-shapes-background-image_455425.jpg)
+
 A compiler that translates YOLO, a custom programming language, into C code. The compiler is structured into a lexer, parser, code emittor, and some unit tests.
 
 ```mermaid
