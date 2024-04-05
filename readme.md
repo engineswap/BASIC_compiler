@@ -1,4 +1,6 @@
 # Yolo to C compiler
+
+![binary](https://png.pngtree.com/thumb_back/fh260/background/20201101/pngtree-abstract-technology-binary-codes-and-shapes-background-image_455425.jpg)
 A compiler that translates YOLO, a custom programming language, into C code. The compiler is structured into a lexer, parser, code emittor, and some unit tests.
 
 ```mermaid
@@ -28,10 +30,10 @@ int main(){
 }
 ```
 The corresponding parse tree:
-![Parse tree](Isolated.png)
+![Parse tree](./screenshots/parse_tree.png)
 
 Here is the grammer for yolo language:
-![Grammar](Isolated.png)
+![Grammar](./screenshots/grammar.png)
 
 As you might be able to tell from the grammar, it only supports basic laguage features:
 - Printing
@@ -61,6 +63,6 @@ ENDFOR
 ```
 
 I also included wrote some unit tests to test basic language features using the `unittest` framework.
-![Unit tests](Isolated.png)
+![Unit tests](./screenshots/unit_tests.png)
 
 I want to thank Austin Z. Henley for his very helpful [Let's make a Teeny Tiny compiler](https://austinhenley.com/blog/teenytinycompiler1.html) blog post which I used as the foundation for my compiler.
