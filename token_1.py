@@ -10,7 +10,7 @@ class Token:
     @staticmethod
     def isKeyword(text: str) -> bool:
         try:
-            enum = TokenType[text]
+            TokenType[text]
             return True
         except Exception as e:
             return False
@@ -43,6 +43,8 @@ class TokenType(Enum):
     WHILE = 109
     REPEAT = 110
     ENDWHILE = 111
+    FOR = 112
+    ENDFOR = 114
     # Operators
     EQ = 201
     PLUS = 202
@@ -58,3 +60,4 @@ class TokenType(Enum):
     # MISC syntax
     OPEN_PAREN = 301
     CLOSE_PAREN = 302
+    SEMICOLON = 303

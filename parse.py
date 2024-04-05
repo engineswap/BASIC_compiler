@@ -160,6 +160,30 @@ class Parser:
                 self.statement(statement_node)
             self.emitter.emitLine("}")
             self.match(TokenType.ENDWHILE)
+        # "FOR" "(" for_assignment ";" comparison ";" for_declaration ")" "DO" nl {statement} "ENDFOR" nl
+        elif self.checkToken(TokenType.FOR):
+            self.add_node("FOR", statement_node, True)
+            self.nextToken()
+            self.match(TokenType.OPEN_PAREN)
+
+            self.emitter.emit("for(")
+            self.for_declaration(statement_node)
+            self.match(TokenType.SEMICOLON)
+            self.emitter.emit(";")
+            self.comparison(statement_node)
+            self.match(TokenType.SEMICOLON)
+            self.emitter.emit(";")
+            self.for_assignment(statement_node)
+            self.match(TokenType.CLOSE_PAREN)
+            self.match(TokenType.REPEAT)
+            self.emitter.emitLine("){")
+            self.nl()
+            # >= 0 statements in the body of the loop
+            while not self.checkToken(TokenType.ENDFOR):
+                self.statement(statement_node)
+            self.emitter.emitLine("}")
+            self.match(TokenType.ENDFOR)
+
         # | "LABEL" ident nl
         elif self.checkToken(TokenType.LABEL):
             self.add_node("LABEL", statement_node, True)
@@ -239,6 +263,32 @@ class Parser:
             or self.checkToken(TokenType.EQEQ)
             or self.checkToken(TokenType.NOTEQ)
         )
+
+    # assignment ::= "LET" ident "=" expression
+    def for_declaration(self, parent_node: pydot.Node):
+        for_declaration_node = self.add_node("for_declaration", parent_node)
+
+        self.match(TokenType.LET)
+        self.add_node(self.curToken.text, for_declaration_node, True)
+        self.emitter.emit("int " + self.curToken.text)
+        self.symbols.add(self.curToken.text)
+        self.match(TokenType.IDENT)
+        self.add_node(self.curToken.text, for_declaration_node, True)
+        self.emitter.emit("=")
+        self.match(TokenType.EQ)
+        self.expression(for_declaration_node)
+
+    # declaration ::= ident "=" expression
+    def for_assignment(self, parent_node: pydot.Node):
+        for_assignment_node = self.add_node("for_assignment", parent_node)
+        self.emitter.emit(self.curToken.text)
+        self.symbols.add(self.curToken.text)
+        self.add_node(self.curToken.text, for_assignment_node, True)
+        self.match(TokenType.IDENT)
+        self.add_node(self.curToken.text, for_assignment_node, True)
+        self.emitter.emit("=")
+        self.match(TokenType.EQ)
+        self.expression(for_assignment_node)
 
     # comparison ::= expression (("==" | "!=" | ">" | ">=" | "<" | "<=") expression)+
     def comparison(self, parent_node: pydot.Node):

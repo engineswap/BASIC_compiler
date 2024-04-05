@@ -1,0 +1,38 @@
+program ::= {statement}
+
+statement ::= print_statement
+            | if_statement
+            | while_statement
+            | for_statement
+            | label_statement
+            | goto_statement
+            | let_statement
+            | input_statement
+
+print_statement ::= "PRINT" (expression | string) nl
+
+if_statement ::= "IF" "(" comparison ")" "THEN" nl {statement} "ENDIF" nl
+
+while_statement ::= "WHILE" "(" comparison ")" "REPEAT" nl {statement} "ENDWHILE" nl
+
+for_statement ::= "FOR" "(" for_declaration ";" comparison ";" for_assignment ")" "REPEAT" nl {statement} "ENDFOR" nl
+
+label_statement ::= "LABEL" ident nl
+
+goto_statement ::= "GOTO" ident nl
+
+let_statement ::= "LET" ident "=" expression nl
+
+input_statement ::= "INPUT" ident nl
+
+comparison ::= expression (("==" | "!=" | ">" | ">=" | "<" | "<=") expression)+
+
+expression ::= term {( "-" | "+" ) term}
+
+term ::= unary {( "/" | "*" ) unary}
+
+unary ::= ["+" | "-"] primary
+
+primary ::= number | ident | "(" expression ")"
+
+nl ::= '\n'+

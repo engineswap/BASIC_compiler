@@ -101,6 +101,9 @@ class Lexer:
                 self.nextChar()
             tokText = self.source[startPos : self.curPos]
             token = Token(tokText, TokenType.STRING)
+        elif self.curChar == ";":
+            token = Token(self.curChar, TokenType.SEMICOLON)
+            self.nextChar()
         elif self.curChar.isdigit():
             # Leading char is a digit, so this should be a number
             startPos = self.curPos
@@ -121,7 +124,6 @@ class Lexer:
             while self.peek().isalnum():
                 self.nextChar()
             tokText = self.source[startPos : self.curPos + 1]
-
             if Token.isKeyword(tokText):
                 token = Token(tokText, TokenType[tokText])
             elif Token.isBoolean(tokText):

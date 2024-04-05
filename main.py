@@ -20,6 +20,7 @@ if __name__ == "__main__":
     print(emitter.header + emitter.code)
     print("Parsing complete")
 
+    # Test parser
     # token = lexer.getToken()
     # while token.kind != TokenType.EOF:
     #     if token.kind != TokenType.NEWLINE:
