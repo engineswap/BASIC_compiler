@@ -17,6 +17,10 @@ while_statement ::= "WHILE" "(" comparison ")" "REPEAT" nl {statement} "ENDWHILE
 
 for_statement ::= "FOR" "(" for_declaration ";" comparison ";" for_assignment ")" "REPEAT" nl {statement} "ENDFOR" nl
 
+for_declaration ::= "LET" ident "=" expression
+
+for_assignment ::= ident "=" expression
+
 label_statement ::= "LABEL" ident nl
 
 goto_statement ::= "GOTO" ident nl

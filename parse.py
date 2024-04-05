@@ -264,7 +264,7 @@ class Parser:
             or self.checkToken(TokenType.NOTEQ)
         )
 
-    # assignment ::= "LET" ident "=" expression
+    # for_declaration ::= "LET" ident "=" expression
     def for_declaration(self, parent_node: pydot.Node):
         for_declaration_node = self.add_node("for_declaration", parent_node)
 
@@ -278,7 +278,7 @@ class Parser:
         self.match(TokenType.EQ)
         self.expression(for_declaration_node)
 
-    # declaration ::= ident "=" expression
+    # for_assignment ::= ident "=" expression
     def for_assignment(self, parent_node: pydot.Node):
         for_assignment_node = self.add_node("for_assignment", parent_node)
         self.emitter.emit(self.curToken.text)

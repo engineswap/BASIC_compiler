@@ -1,3 +1,15 @@
-FOR (LET i = 0; i<10; i = i+1) REPEAT
-PRINT "YOLO 4 LIFE"
+
+LET terms = 10  # Number of Fibonacci terms to generate
+LET a = 0
+LET b = 1
+
+PRINT "Fibonacci Sequence:"
+PRINT a
+PRINT b
+
+FOR (LET i = 2; i < terms; i = i + 1) REPEAT
+    LET next = a + b
+    PRINT next
+    LET a = b
+    LET b = next
 ENDFOR
